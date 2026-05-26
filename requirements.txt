@@ -1,0 +1,9 @@
+PySide6
+numpy
+sounddevice
+soundfile
+requests
+PyYAML
+fastapi
+uvicorn
+opencc-python-reimplemented

@@ -1,0 +1,31 @@
+app:
+  title: Offline Voice Capture MVP
+  log_file: logs/app.log
+
+audio:
+  sample_rate: 16000
+  channels: 1
+  dtype: int16
+  output_dir: data/audio
+  input_device: ""
+
+asr:
+  backend: lan_http
+  endpoint: http://127.0.0.1:9000/recognize
+  timeout_seconds: 120
+  verify_ssl: false
+  postprocess_enabled: true
+
+capture_defaults:
+  sample_id: default_sample
+  magnification: 5000
+  exposure_ms: 100
+  frame_count: 1
+  save_dir: data/output
+
+llm_nlu:
+  enabled: true
+  endpoint: http://workspace.featurize.cn:13497/nlu/parse
+  timeout_seconds: 30
+  task_type: tcp_phase_analysis
+  parse_mode: llm_first

@@ -1,0 +1,507 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>语音拍摄控制台</title>
+    <style>
+      :root {
+        --bg: #f3f6fb;
+        --bg-grad: radial-gradient(circle at 20% 0%, #eaf1ff 0, #f3f6fb 45%);
+        --card: #ffffff;
+        --text: #101828;
+        --muted: #667085;
+        --line: #e4e7ec;
+        --primary: #2563eb;
+        --primary-hover: #1d4ed8;
+        --success: #16a34a;
+        --danger: #dc2626;
+        --shadow: 0 10px 28px rgba(16, 24, 40, 0.08);
+      }
+
+      body[data-theme="dark"] {
+        --bg: #0b1220;
+        --bg-grad: radial-gradient(circle at 20% 0%, #172341 0, #0b1220 50%);
+        --card: #111a2d;
+        --text: #e5e7eb;
+        --muted: #98a2b3;
+        --line: #263142;
+        --primary: #3b82f6;
+        --primary-hover: #2563eb;
+        --success: #22c55e;
+        --danger: #ef4444;
+        --shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+      }
+
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg-grad);
+        color: var(--text);
+        font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      }
+
+      .container {
+        max-width: 1060px;
+        margin: 24px auto 42px auto;
+        padding: 0 16px;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        align-items: flex-start;
+        margin-bottom: 14px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 25px;
+        font-weight: 700;
+      }
+
+      .subtitle {
+        margin-top: 8px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .status-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 9px 14px;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 13px;
+        border: 1px solid transparent;
+        background: #e8eeff;
+        color: #22336c;
+      }
+
+      .status-idle { background: #e8eeff; color: #22336c; }
+      .status-recording { background: #dcfce7; color: #166534; }
+      .status-error { background: #fee2e2; color: #991b1b; }
+
+      body[data-theme="dark"] .status-idle { background: #263a77; color: #dce6ff; }
+      body[data-theme="dark"] .status-recording { background: #14532d; color: #dcfce7; }
+      body[data-theme="dark"] .status-error { background: #7f1d1d; color: #fee2e2; }
+
+      .btn {
+        border: 1px solid var(--line);
+        background: var(--card);
+        color: var(--text);
+        padding: 9px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 13px;
+        transition: 0.2s ease;
+      }
+
+      .btn:hover { transform: translateY(-1px); }
+      .btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+      .btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+      .btn-success { background: var(--success); border-color: var(--success); color: #fff; }
+      .btn-danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        margin-bottom: 14px;
+      }
+
+      .step {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 8px;
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .step.active {
+        border-color: #8fb3ff;
+        color: var(--primary);
+        background: #eff4ff;
+        font-weight: 700;
+      }
+
+      body[data-theme="dark"] .step.active {
+        background: #1c2c57;
+        border-color: #4d73d4;
+        color: #d7e4ff;
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        box-shadow: var(--shadow);
+        padding: 18px;
+        margin-bottom: 14px;
+      }
+
+      .card h3 {
+        margin: 0 0 14px 0;
+        font-size: 16px;
+      }
+
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
+      }
+
+      .row:last-child { margin-bottom: 0; }
+
+      .device-label, .hint {
+        color: var(--muted);
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      input, textarea, select {
+        width: 100%;
+        border: 1px solid #d0d5dd;
+        border-radius: 10px;
+        padding: 10px 12px;
+        font-size: 14px;
+        outline: none;
+        transition: 0.2s ease;
+        background: var(--card);
+        color: var(--text);
+      }
+
+      body[data-theme="dark"] input,
+      body[data-theme="dark"] textarea,
+      body[data-theme="dark"] select {
+        border-color: #3a4659;
+      }
+
+      input:focus, textarea:focus, select:focus {
+        border-color: #84a9ff;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+      }
+
+      textarea { min-height: 120px; resize: vertical; }
+
+      .grid {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 10px;
+        margin: 12px 0;
+      }
+
+      .grid label {
+        align-self: center;
+        font-weight: 700;
+        color: #344054;
+        font-size: 13px;
+      }
+
+      body[data-theme="dark"] .grid label { color: #d1d5db; }
+
+      .meter-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      progress {
+        width: 260px;
+        height: 14px;
+        accent-color: var(--primary);
+      }
+
+      @media (max-width: 860px) {
+        .steps { grid-template-columns: 1fr 1fr; }
+        .grid { grid-template-columns: 1fr; }
+        .header { flex-direction: column; align-items: flex-start; }
+      }
+    </style>
+  </head>
+  <body data-theme="light">
+    <div class="container">
+      <div class="header">
+        <div>
+          <h1>语音拍摄控制台</h1>
+          <div class="subtitle">录音 -> 识别 -> 解析参数 -> 确认参数 -> 执行采集</div>
+        </div>
+        <div class="header-actions">
+          <button class="btn" id="themeToggle">深色模式</button>
+          <div id="status" class="status-badge status-idle">就绪</div>
+        </div>
+      </div>
+
+      <div class="steps">
+        <div class="step active" id="step1">1. 录音</div>
+        <div class="step" id="step2">2. 语音识别</div>
+        <div class="step" id="step3">3. 参数解析</div>
+        <div class="step" id="step4">4. 参数确认</div>
+        <div class="step" id="step5">5. 执行采集</div>
+      </div>
+
+      <div class="card">
+        <h3>音频输入</h3>
+        <div class="row">
+          <label for="deviceSelect"><strong>输入设备</strong></label>
+          <select id="deviceSelect" style="max-width: 520px;"></select>
+          <button class="btn" id="refreshDevices">刷新设备</button>
+        </div>
+        <div class="device-label" id="deviceLabel"></div>
+        <div class="row" style="margin-top: 10px;">
+          <button class="btn btn-primary" id="startBtn">开始录音</button>
+          <button class="btn" id="stopBtn">结束录音</button>
+          <button class="btn" id="transcribeBtn">识别最新录音</button>
+          <button class="btn btn-primary" id="asrLlmBtn">一键ASR->LLM JSON</button>
+        </div>
+        <div class="row">
+          <div class="meter-wrap">
+            <label><strong>麦克风电平</strong></label>
+            <progress id="levelBar" max="100" value="0"></progress>
+            <span id="levelText">0%</span>
+          </div>
+        </div>
+        <div class="hint" id="audioInfo">提示：建议每段语音控制在 3-10 秒，识别更稳定。</div>
+      </div>
+
+      <div class="card">
+        <h3>文本与 TCP 相位参数</h3>
+        <textarea id="asrText" placeholder="ASR 识别文本显示在这里..."></textarea>
+        <div class="row" style="margin-top: 12px;">
+          <button class="btn btn-primary" id="parseBtn">解析文本为 TCP 参数</button>
+        </div>
+        <div class="grid">
+          <label>mag_n（放大倍率）</label><input id="mag_n" type="number" step="0.1" />
+          <label>interval_m（移动间隔 m）</label><input id="interval_m" type="number" step="0.000001" />
+          <label>move_cnt_w（横向移动次数）</label><input id="move_cnt_w" type="number" step="1" />
+          <label>move_cnt_h（纵向移动次数）</label><input id="move_cnt_h" type="number" step="1" />
+          <label>res_w（横向分辨率）</label><input id="res_w" type="number" step="1" />
+          <label>res_h（纵向分辨率）</label><input id="res_h" type="number" step="1" />
+          <label>dwell（单像素驻留时间 s）</label><input id="dwell" type="number" step="0.000001" />
+          <label>frames_n（采集帧数）</label><input id="frames_n" type="number" step="1" />
+        </div>
+        <div class="hint" id="missingFields">缺失字段会显示在这里。</div>
+        <div class="row" style="margin-top: 12px;">
+          <button class="btn btn-success" id="executeTcpBtn">执行 TCP 相位分析</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>云端 NLU JSON 返回</h3>
+        <textarea id="llmJson" placeholder="点击“一键ASR->LLM JSON”后显示云端返回..." style="min-height: 180px;"></textarea>
+        <div class="hint">说明：该区域显示云端 /nlu/parse 原始 JSON，便于你调试 slots 抽取效果。</div>
+      </div>
+    </div>
+
+    <script>
+      const $ = (id) => document.getElementById(id);
+
+      async function api(path, options = {}) {
+        const res = await fetch(path, {
+          headers: { "Content-Type": "application/json" },
+          ...options,
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) throw new Error(data.detail || JSON.stringify(data));
+        return data;
+      }
+
+      function setStatus(text, mode = "idle") {
+        $("status").textContent = text;
+        $("status").className = `status-badge status-${mode}`;
+      }
+
+      function setStep(activeStep) {
+        ["step1", "step2", "step3", "step4", "step5"].forEach((id, idx) => {
+          const el = $(id);
+          if (idx + 1 <= activeStep) el.classList.add("active");
+          else el.classList.remove("active");
+        });
+      }
+
+      function setTheme(theme) {
+        document.body.setAttribute("data-theme", theme);
+        $("themeToggle").textContent = theme === "dark" ? "浅色模式" : "深色模式";
+        localStorage.setItem("capture-theme", theme);
+      }
+
+      async function loadDevices() {
+        const data = await api("/api/devices");
+        $("deviceLabel").textContent = `当前设备：${data.selected_label}`;
+        const select = $("deviceSelect");
+        select.innerHTML = "";
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "系统默认输入";
+        select.appendChild(defaultOption);
+        data.devices.forEach((d) => {
+          const opt = document.createElement("option");
+          opt.value = String(d.index);
+          opt.textContent = `${d.index}: ${d.name}`;
+          if (`${d.index}: ${d.name}` === data.selected_label) opt.selected = true;
+          select.appendChild(opt);
+        });
+      }
+
+      async function setDevice() {
+        const v = $("deviceSelect").value;
+        const payload = { device_index: v === "" ? null : Number(v) };
+        const data = await api("/api/device", { method: "POST", body: JSON.stringify(payload) });
+        $("deviceLabel").textContent = `当前设备：${data.selected_label}`;
+      }
+
+      async function pollStatus() {
+        try {
+          const s = await api("/api/record/status");
+          $("levelBar").value = Math.floor((s.latest_level || 0) * 100);
+          $("levelText").textContent = `${Math.floor((s.latest_level || 0) * 100)}%`;
+        } catch (_e) {}
+      }
+
+      async function startRec() {
+        await api("/api/record/start", { method: "POST" });
+        setStatus("录音中", "recording");
+        setStep(1);
+      }
+
+      async function stopRec() {
+        const data = await api("/api/record/stop", { method: "POST" });
+        setStatus("录音完成", "idle");
+        $("audioInfo").textContent = `已保存：${data.audio_path}（${data.duration_seconds.toFixed(2)} 秒）`;
+        setStep(1);
+      }
+
+      async function transcribe() {
+        const data = await api("/api/transcribe/latest", { method: "POST" });
+        $("asrText").value = data.text;
+        setStatus("识别完成", "idle");
+        setStep(2);
+      }
+
+      async function parseText() {
+        const text = $("asrText").value.trim();
+        if (!text) throw new Error("没有可解析的文本。");
+        const data = await api("/api/pipeline/asr_to_llm_json", {
+          method: "POST",
+          body: JSON.stringify({ text })
+        });
+        const p = data.tcp_params || {};
+        $("mag_n").value = p.mag_n ?? "";
+        $("interval_m").value = p.interval_m ?? "";
+        $("move_cnt_w").value = p.move_cnt_w ?? "";
+        $("move_cnt_h").value = p.move_cnt_h ?? "";
+        $("res_w").value = p.res_w ?? "";
+        $("res_h").value = p.res_h ?? "";
+        $("dwell").value = p.dwell ?? "";
+        $("frames_n").value = p.frames_n ?? "";
+        $("llmJson").value = JSON.stringify(data.nlu, null, 2);
+        $("missingFields").textContent = `云端缺失字段：${(data.missing_fields || []).join("、") || "无"}`;
+        setStatus("参数解析完成", "idle");
+        setStep(4);
+      }
+
+      async function asrToLlmJson() {
+        const data = await api("/api/pipeline/asr_to_llm_json", {
+          method: "POST",
+          body: JSON.stringify({ text: "" })
+        });
+        $("asrText").value = data.text || "";
+        $("llmJson").value = JSON.stringify(data.nlu, null, 2);
+        const p = data.tcp_params || {};
+        $("mag_n").value = p.mag_n ?? "";
+        $("interval_m").value = p.interval_m ?? "";
+        $("move_cnt_w").value = p.move_cnt_w ?? "";
+        $("move_cnt_h").value = p.move_cnt_h ?? "";
+        $("res_w").value = p.res_w ?? "";
+        $("res_h").value = p.res_h ?? "";
+        $("dwell").value = p.dwell ?? "";
+        $("frames_n").value = p.frames_n ?? "";
+        $("missingFields").textContent = `云端缺失字段：${(data.missing_fields || []).join("、") || "无"}`;
+        setStatus("ASR->LLM 完成", "idle");
+        setStep(3);
+      }
+
+      async function executeTcp() {
+        const payload = {
+          mag_n: Number($("mag_n").value),
+          interval_m: Number($("interval_m").value),
+          move_cnt_w: Number($("move_cnt_w").value),
+          move_cnt_h: Number($("move_cnt_h").value),
+          res_w: Number($("res_w").value),
+          res_h: Number($("res_h").value),
+          dwell: Number($("dwell").value),
+          frames_n: Number($("frames_n").value),
+        };
+        const data = await api("/api/execute_tcp", { method: "POST", body: JSON.stringify(payload) });
+        setStatus(
+          data.success ? `执行成功：${data.task_id}` : `执行失败：${data.task_id}`,
+          data.success ? "idle" : "error"
+        );
+        setStep(5);
+        alert(`${data.message}\n任务ID：${data.task_id}`);
+      }
+
+      function bindEvents() {
+        $("themeToggle").onclick = () => {
+          const current = document.body.getAttribute("data-theme") || "light";
+          setTheme(current === "light" ? "dark" : "light");
+        };
+
+        $("refreshDevices").onclick = () => loadDevices().catch((e) => {
+          setStatus("设备刷新失败", "error");
+          alert(e.message);
+        });
+        $("deviceSelect").onchange = () => setDevice().catch((e) => {
+          setStatus("设备切换失败", "error");
+          alert(e.message);
+        });
+        $("startBtn").onclick = () => startRec().catch((e) => {
+          setStatus("开始录音失败", "error");
+          alert(e.message);
+        });
+        $("stopBtn").onclick = () => stopRec().catch((e) => {
+          setStatus("结束录音失败", "error");
+          alert(e.message);
+        });
+        $("transcribeBtn").onclick = () => transcribe().catch((e) => {
+          setStatus("识别失败", "error");
+          alert(e.message);
+        });
+        $("asrLlmBtn").onclick = () => asrToLlmJson().catch((e) => {
+          setStatus("ASR->LLM 失败", "error");
+          alert(e.message);
+        });
+        $("parseBtn").onclick = () => parseText().catch((e) => {
+          setStatus("解析失败", "error");
+          alert(e.message);
+        });
+        $("executeTcpBtn").onclick = () => executeTcp().catch((e) => {
+          setStatus("执行失败", "error");
+          alert(e.message);
+        });
+      }
+
+      bindEvents();
+      setTheme(localStorage.getItem("capture-theme") || "light");
+      setStep(1);
+      loadDevices().catch((e) => {
+        setStatus("初始化失败", "error");
+        alert(e.message);
+      });
+      setInterval(pollStatus, 300);
+    </script>
+  </body>
+</html>

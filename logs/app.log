@@ -1,0 +1,48 @@
+2026-05-17 19:16:36,530 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 19:20:47,754 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 19:26:10,970 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 20:03:48,424 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 20:05:46,539 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 20:08:34,258 INFO [app.capture.executor] Starting capture task_id=task_20260517_200834 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:08:34,259 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:08:34,259 INFO [app.capture.executor] Finished capture task_id=task_20260517_200834 success=True
+2026-05-17 20:09:06,271 INFO [app.capture.executor] Starting capture task_id=task_20260517_200906 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:09:06,272 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:09:06,272 INFO [app.capture.executor] Finished capture task_id=task_20260517_200906 success=True
+2026-05-17 20:11:12,289 INFO [app.capture.executor] Starting capture task_id=task_20260517_201112 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:11:12,290 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:11:12,290 INFO [app.capture.executor] Finished capture task_id=task_20260517_201112 success=True
+2026-05-17 20:11:43,983 INFO [app.capture.executor] Starting capture task_id=task_20260517_201143 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:11:43,983 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 20:11:43,983 INFO [app.capture.executor] Finished capture task_id=task_20260517_201143 success=True
+2026-05-17 20:20:17,003 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 20:21:07,713 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 20:24:01,777 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 21:22:51,970 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 21:27:56,636 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 21:37:52,436 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-17 21:38:28,136 INFO [app.capture.executor] Starting capture task_id=task_20260517_213828 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 21:38:28,136 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 21:38:28,136 INFO [app.capture.executor] Finished capture task_id=task_20260517_213828 success=True
+2026-05-17 21:39:19,252 INFO [app.capture.executor] Starting capture task_id=task_20260517_213919 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 21:39:19,253 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 21:39:19,253 INFO [app.capture.executor] Finished capture task_id=task_20260517_213919 success=True
+2026-05-17 21:53:32,533 INFO [app.capture.executor] Starting capture task_id=task_20260517_215332 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 21:53:32,533 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-17 21:53:32,533 INFO [app.capture.executor] Finished capture task_id=task_20260517_215332 success=True
+2026-05-19 16:22:46,111 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-19 22:29:29,221 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-19 22:30:39,055 INFO [app.capture.executor] Starting capture task_id=task_20260519_223039 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:30:39,055 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:30:39,055 INFO [app.capture.executor] Finished capture task_id=task_20260519_223039 success=True
+2026-05-19 22:31:05,708 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-19 22:31:43,060 INFO [app.capture.executor] Starting capture task_id=task_20260519_223143 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:31:43,060 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:31:43,060 INFO [app.capture.executor] Finished capture task_id=task_20260519_223143 success=True
+2026-05-19 22:32:04,871 INFO [app.capture.executor] Starting capture task_id=task_20260519_223204 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:32:04,871 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:32:04,872 INFO [app.capture.executor] Finished capture task_id=task_20260519_223204 success=True
+2026-05-19 22:33:23,223 WARNING [app.capture.auto_script_adapter] user_auto_script.run_capture_task not found; fallback mock executor is used.
+2026-05-19 22:33:50,444 INFO [app.capture.executor] Starting capture task_id=task_20260519_223350 payload={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:33:50,444 INFO [app.capture.auto_script_adapter] Fallback capture execution with params={'sample_id': 'default_sample', 'magnification': 5000, 'exposure_ms': 100, 'frame_count': 1, 'save_dir': 'G:\\suzhou\\data\\output'}
+2026-05-19 22:33:50,445 INFO [app.capture.executor] Finished capture task_id=task_20260519_223350 success=True
