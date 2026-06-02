@@ -74,7 +74,10 @@ class ParamConfirmDialog(QDialog):
         fields = {
             "sample_id": params.sample_id,
             "magnification": str(params.magnification),
-            "exposure_ms": str(params.exposure_ms),
+            "interval(um)": str(params.interval * 1000 * 1000),
+            "move(H)": str(params.move_cnt_h),
+            "move(W)": str(params.move_cnt_w),
+            "dwell(ms)": str(params.dwell * 1000),
             "frame_count": str(params.frame_count),
             "save_dir": params.save_dir,
         }
@@ -102,7 +105,10 @@ class ParamConfirmDialog(QDialog):
         return CaptureParams(
             sample_id=self._edits["sample_id"].text().strip(),
             magnification=int(self._edits["magnification"].text().strip()),
-            exposure_ms=int(self._edits["exposure_ms"].text().strip()),
+            interval=float(self._edits["interval(um)"].text().strip())/1000000,
+            move_cnt_w=int(self._edits["move(W)"].text().strip()),
+            move_cnt_h=int(self._edits["move(H)"].text().strip()),
+            dwell=float(self._edits["dwell(ms)"].text().strip())/1000,
             frame_count=int(self._edits["frame_count"].text().strip()),
             save_dir=self._edits["save_dir"].text().strip(),
         )

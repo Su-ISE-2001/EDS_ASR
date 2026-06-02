@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+*.wav
+app/logs
+.idea
+logs/*

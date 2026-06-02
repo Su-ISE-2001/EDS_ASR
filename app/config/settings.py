@@ -46,7 +46,10 @@ class LlmNluSettings:
 class CaptureDefaultSettings:
     sample_id: str
     magnification: int
-    exposure_ms: int
+    interval: float
+    move_cnt_w: int
+    move_cnt_h: int
+    dwell: float
     frame_count: int
     save_dir: Path
 
@@ -107,7 +110,10 @@ def load_settings(settings_path: Path | None = None) -> Settings:
         capture_defaults=CaptureDefaultSettings(
             sample_id=capture_section["sample_id"],
             magnification=int(capture_section["magnification"]),
-            exposure_ms=int(capture_section["exposure_ms"]),
+            interval=float(capture_section["interval_um"])/1000000,
+            move_cnt_w=int(capture_section["move_cnt_w"]),
+            move_cnt_h=int(capture_section["move_cnt_h"]),
+            dwell=float(capture_section["dwell_ms"])/1000,
             frame_count=int(capture_section["frame_count"]),
             save_dir=_resolve_path(project_root, capture_section["save_dir"]),
         ),

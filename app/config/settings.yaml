@@ -18,14 +18,17 @@ asr:
 
 capture_defaults:
   sample_id: default_sample
-  magnification: 5000
-  exposure_ms: 100
-  frame_count: 1
+  magnification: 1500
+  interval_um: 90
+  move_cnt_w: 10
+  move_cnt_h: 10
+  dwell_ms: 20
+  frame_count: 23
   save_dir: data/output
 
 llm_nlu:
   enabled: true
-  endpoint: http://workspace.featurize.cn:13497/nlu/parse
+  endpoint: http://10.1.141.135:9100/nlu/parse
   timeout_seconds: 30
   task_type: tcp_phase_analysis
   parse_mode: llm_first

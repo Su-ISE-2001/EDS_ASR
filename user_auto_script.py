@@ -16,7 +16,7 @@ def tcp_phase_analysis(
     dwell: float = 0.00002,
     frames_n: int = 23,
 ):
-    # TODO: Replace with real hardware call.
+    from apero_autoscript import tcp_phase_map
     # Example:
     # from your_sdk import microscope
     # return microscope.tcp_phase_analysis(...)
@@ -33,7 +33,19 @@ def tcp_phase_analysis(
             "frames_n": frames_n,
         },
     )
-    return {"status": "success", "message": "tcp_phase_analysis stub executed"}
+    return tcp_phase_map.tcp_phase_analysis(
+        pos_i_=-1,
+        mag_n_=mag_n,
+        interval_m_=interval_m,
+        move_cnt_w_=move_cnt_w,
+        move_cnt_h_=move_cnt_h,
+        res_w_=res_w,
+        res_h_=res_h,
+        dwell_s_=dwell,
+        frames_n_=frames_n,
+        show_statis=True,
+        microscope_=None,
+    )
 
 
 def run_capture_task(params: dict) -> dict:
